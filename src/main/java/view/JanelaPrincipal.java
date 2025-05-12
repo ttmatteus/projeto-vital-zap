@@ -89,13 +89,12 @@ public class JanelaPrincipal implements Aplicativo {
     private final Map<String, String> remetenteImageMap = new HashMap<>();
 
     // cores e fontes pra deixar o app bonitinho e moderno
-    private static final Color COR_PRIMARIA = new Color(33, 192, 99); // azul vibrante pros botões e detalhes
+    private static final Color COR_PRIMARIA = new Color(33, 192, 99); // verde claro do whatsapp
     private static final Color COR_SECUNDARIA = new Color(255, 255, 255); // branco limpo pro fundo
     private static final Color COR_MENSAGEM_OUTRO = new Color(240, 242, 245); // cinza claro pras mensagens dos outros
     private static final Color COR_FUNDO = new Color(248, 250, 252); // fundo suave, quase branco
     private static final Color COR_SOMBRA = new Color(0, 0, 0, 30); // sombra sutil pra dar profundidade
     private static final Color COR_HOVER_CHAT = new Color(232, 236, 239); // cor quando vc passa o mouse por cima de um chat
-    private static final Color COR_WHATSAPP_VERDE_CLARO = new Color(33, 192, 99); // verde claro do whatsapp
     private static final Font FONT_MENSAGEM = new Font("Segoe UI", Font.PLAIN, 15); // fonte das mensagens
     private static final Font FONT_CAMPO = new Font("Segoe UI", Font.PLAIN, 16); // fonte do campo de texto
     private static final Font FONT_TITULO = new Font("Segoe UI", Font.BOLD, 18); // fonte dos títulos
@@ -219,10 +218,10 @@ public class JanelaPrincipal implements Aplicativo {
             RoundRectangle2D rect = new RoundRectangle2D.Double(
                     0, 0, width - 1, height - 1, CORNER_RADIUS, CORNER_RADIUS);
 
-            g2d.setColor(COR_WHATSAPP_VERDE_CLARO);
+            g2d.setColor(COR_PRIMARIA);
             g2d.fill(rect);
 
-            g2d.setColor(COR_WHATSAPP_VERDE_CLARO);
+            g2d.setColor(COR_PRIMARIA);
             g2d.setStroke(new BasicStroke(1));
             g2d.draw(rect);
 
@@ -390,7 +389,7 @@ public class JanelaPrincipal implements Aplicativo {
         panel.add(numeroField, BorderLayout.CENTER);
 
         // configura o estilo dos botões do diálogo
-        UIManager.put("Button.background", COR_WHATSAPP_VERDE_CLARO);
+        UIManager.put("Button.background", COR_PRIMARIA);
         UIManager.put("Button.foreground", Color.WHITE);
         UIManager.put("Button.font", FONT_SUBTITULO);
         UIManager.put("Button.border", BorderFactory.createEmptyBorder(12, 20, 12, 20));
@@ -1442,11 +1441,11 @@ public class JanelaPrincipal implements Aplicativo {
                     super.paintComponent(g);
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                    g2d.setColor(ehUsuario ? COR_WHATSAPP_VERDE_CLARO : COR_MENSAGEM_OUTRO);
+                    g2d.setColor(ehUsuario ? COR_PRIMARIA : COR_MENSAGEM_OUTRO);
                     g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
                     g2d.setColor(COR_SOMBRA);
                     g2d.fillRoundRect(2, 2, getWidth() - 2, getHeight() - 2, 20, 20);
-                    g2d.setColor(ehUsuario ? COR_WHATSAPP_VERDE_CLARO : COR_MENSAGEM_OUTRO);
+                    g2d.setColor(ehUsuario ? COR_PRIMARIA : COR_MENSAGEM_OUTRO);
                     g2d.fillRoundRect(0, 0, getWidth() - 2, getHeight() - 2, 20, 20);
                 }
             };
@@ -1559,7 +1558,7 @@ public class JanelaPrincipal implements Aplicativo {
         panel.add(messageLabel, BorderLayout.CENTER); // coloca o texto no centro do painel
 
         // configura o estilo dos botões do diálogo (sim/não)
-        UIManager.put("Button.background", COR_WHATSAPP_VERDE_CLARO); // fundo azul vibrante
+        UIManager.put("Button.background", COR_PRIMARIA); // fundo azul vibrante
         UIManager.put("Button.foreground", Color.WHITE); // texto branco
         UIManager.put("Button.font", FONT_SUBTITULO); // fonte de subtítulo
         UIManager.put("Button.select", new Color(0, 100, 220)); // cor quando o botão é selecionado
