@@ -221,7 +221,7 @@ public class JanelaPrincipal implements Aplicativo {
 
         // configura a janela principal do app
         frame = new JFrame("Zap"); // nome da janela: "zap"
-        frame.setSize(600, 800); // tamanho padrão da janela
+        frame.setSize(600, 700); // tamanho padrão da janela
         frame.setMinimumSize(new Dimension(350, 600)); // tamanho mínimo
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // fecha o app ao clicar no x
         frame.setLocationRelativeTo(null); // centraliza a janela na tela
@@ -824,7 +824,25 @@ public class JanelaPrincipal implements Aplicativo {
 
             @Override
             protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
-                // não desenha o controle deslizante (thumb)
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                boolean isDagging = ((JScrollBar) c).getModel().getValueIsAdjusting();
+                g2.setColor(isDagging ? new Color(80,80,80,120) : new Color(120,120,120,80));
+
+                int width = 6;
+                int height = thumbBounds.height;
+                int x = thumbBounds.x + (thumbBounds.width - width) / 2;
+                int y = thumbBounds.y;
+                int arc = 6;
+
+                g2.fillRoundRect(x, y, width, height, arc, arc);
+                g2.dispose();
+            }
+
+            @Override
+            protected Dimension getMinimumThumbSize() {
+                return new Dimension(6, 20);
             }
 
             @Override
