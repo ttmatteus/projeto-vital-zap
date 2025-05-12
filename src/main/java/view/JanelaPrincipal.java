@@ -1,16 +1,32 @@
 package view;
 
 
-import interfaces.Aplicativo;
-import model.Mensagem;
-import model.Usuario;
-import observer.Observable;
-
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicScrollBarUI;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BasicStroke;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
@@ -22,6 +38,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicScrollBarUI;
+
+import interfaces.Aplicativo;
+import model.Mensagem;
+import model.Usuario;
+import observer.Observable;
 
 public class JanelaPrincipal implements Aplicativo {
     // aqui são as variáveis principais da classe, tipo o esqueleto do app
@@ -46,13 +89,14 @@ public class JanelaPrincipal implements Aplicativo {
     private final Map<String, String> remetenteImageMap = new HashMap<>();
 
     // cores e fontes pra deixar o app bonitinho e moderno
-    private static final Color COR_PRIMARIA = new Color(0, 122, 255); // azul vibrante pros botões e detalhes
+    private static final Color COR_PRIMARIA = new Color(33, 192, 99); // azul vibrante pros botões e detalhes
     private static final Color COR_SECUNDARIA = new Color(255, 255, 255); // branco limpo pro fundo
     private static final Color COR_MENSAGEM_USUARIO = new Color(0, 122, 255); // azul pras mensagens que vc envia
     private static final Color COR_MENSAGEM_OUTRO = new Color(240, 242, 245); // cinza claro pras mensagens dos outros
     private static final Color COR_FUNDO = new Color(248, 250, 252); // fundo suave, quase branco
     private static final Color COR_SOMBRA = new Color(0, 0, 0, 30); // sombra sutil pra dar profundidade
     private static final Color COR_HOVER_CHAT = new Color(232, 236, 239); // cor quando vc passa o mouse por cima de um chat
+    private static final Color COR_WHATSAPP_VERDE_CLARO = new Color(33, 192, 99); // verde claro do whatsapp
     private static final Font FONT_MENSAGEM = new Font("Segoe UI", Font.PLAIN, 15); // fonte das mensagens
     private static final Font FONT_CAMPO = new Font("Segoe UI", Font.PLAIN, 16); // fonte do campo de texto
     private static final Font FONT_TITULO = new Font("Segoe UI", Font.BOLD, 18); // fonte dos títulos
@@ -176,10 +220,10 @@ public class JanelaPrincipal implements Aplicativo {
             RoundRectangle2D rect = new RoundRectangle2D.Double(
                     0, 0, width - 1, height - 1, CORNER_RADIUS, CORNER_RADIUS);
 
-            g2d.setColor(COR_PRIMARIA);
+            g2d.setColor(COR_WHATSAPP_VERDE_CLARO);
             g2d.fill(rect);
 
-            g2d.setColor(COR_PRIMARIA);
+            g2d.setColor(COR_WHATSAPP_VERDE_CLARO);
             g2d.setStroke(new BasicStroke(1));
             g2d.draw(rect);
 
@@ -347,7 +391,7 @@ public class JanelaPrincipal implements Aplicativo {
         panel.add(numeroField, BorderLayout.CENTER);
 
         // configura o estilo dos botões do diálogo
-        UIManager.put("Button.background", COR_PRIMARIA);
+        UIManager.put("Button.background", COR_WHATSAPP_VERDE_CLARO);
         UIManager.put("Button.foreground", Color.WHITE);
         UIManager.put("Button.font", FONT_SUBTITULO);
         UIManager.put("Button.border", BorderFactory.createEmptyBorder(12, 20, 12, 20));
@@ -740,7 +784,7 @@ public class JanelaPrincipal implements Aplicativo {
         headerPanel.setOpaque(false);
         headerPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        JLabel backButton = new JLabel("←"); // botão pra voltar pra lista de chats
+        JLabel backButton = new JLabel("❮"); // botão pra voltar pra lista de chats
         backButton.setFont(new Font("Segoe UI", Font.BOLD, 24));
         backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         backButton.addMouseListener(new MouseAdapter() {
@@ -974,7 +1018,7 @@ public class JanelaPrincipal implements Aplicativo {
         // botão de voltar.
         JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         backPanel.setOpaque(false);
-        JLabel backButton = new JLabel("←");
+        JLabel backButton = new JLabel("❮");
         backButton.setFont(new Font("Segoe UI", Font.BOLD, 24));
         backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         backButton.addMouseListener(new MouseAdapter() {
@@ -1103,7 +1147,7 @@ public class JanelaPrincipal implements Aplicativo {
         // botão de voltar
         JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         backPanel.setOpaque(false);
-        JLabel backButton = new JLabel("←");
+        JLabel backButton = new JLabel("❮");
         backButton.setFont(new Font("Segoe UI", Font.BOLD, 24));
         backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         backButton.addMouseListener(new MouseAdapter() {
@@ -1399,11 +1443,11 @@ public class JanelaPrincipal implements Aplicativo {
                     super.paintComponent(g);
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                    g2d.setColor(ehUsuario ? COR_MENSAGEM_USUARIO : COR_MENSAGEM_OUTRO);
+                    g2d.setColor(ehUsuario ? COR_WHATSAPP_VERDE_CLARO : COR_MENSAGEM_OUTRO);
                     g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
                     g2d.setColor(COR_SOMBRA);
                     g2d.fillRoundRect(2, 2, getWidth() - 2, getHeight() - 2, 20, 20);
-                    g2d.setColor(ehUsuario ? COR_MENSAGEM_USUARIO : COR_MENSAGEM_OUTRO);
+                    g2d.setColor(ehUsuario ? COR_WHATSAPP_VERDE_CLARO : COR_MENSAGEM_OUTRO);
                     g2d.fillRoundRect(0, 0, getWidth() - 2, getHeight() - 2, 20, 20);
                 }
             };
@@ -1516,11 +1560,14 @@ public class JanelaPrincipal implements Aplicativo {
         panel.add(messageLabel, BorderLayout.CENTER); // coloca o texto no centro do painel
 
         // configura o estilo dos botões do diálogo (sim/não)
-        UIManager.put("Button.background", COR_PRIMARIA); // fundo azul vibrante
+        UIManager.put("Button.background", COR_WHATSAPP_VERDE_CLARO); // fundo azul vibrante
         UIManager.put("Button.foreground", Color.WHITE); // texto branco
         UIManager.put("Button.font", FONT_SUBTITULO); // fonte de subtítulo
-        UIManager.put("Button.border", BorderFactory.createEmptyBorder(12, 20, 12, 20)); // espaçamento interno
         UIManager.put("Button.select", new Color(0, 100, 220)); // cor quando o botão é selecionado
+        UIManager.put("Button.border", BorderFactory.createCompoundBorder(
+        BorderFactory.createLineBorder(new Color(33, 192, 99), 2), // Borda
+        BorderFactory.createEmptyBorder(12, 20, 12, 20) // Espaçamento interno
+));
 
         // cria o diálogo com opções "sim" e "não".
         JOptionPane optionPane = new JOptionPane(
