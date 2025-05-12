@@ -91,7 +91,6 @@ public class JanelaPrincipal implements Aplicativo {
     // cores e fontes pra deixar o app bonitinho e moderno
     private static final Color COR_PRIMARIA = new Color(33, 192, 99); // azul vibrante pros botões e detalhes
     private static final Color COR_SECUNDARIA = new Color(255, 255, 255); // branco limpo pro fundo
-    private static final Color COR_MENSAGEM_USUARIO = new Color(0, 122, 255); // azul pras mensagens que vc envia
     private static final Color COR_MENSAGEM_OUTRO = new Color(240, 242, 245); // cinza claro pras mensagens dos outros
     private static final Color COR_FUNDO = new Color(248, 250, 252); // fundo suave, quase branco
     private static final Color COR_SOMBRA = new Color(0, 0, 0, 30); // sombra sutil pra dar profundidade
@@ -1468,7 +1467,7 @@ public class JanelaPrincipal implements Aplicativo {
             String horarioFormatado = m.getHorario().format(formatter);
             JLabel horarioLabel = new JLabel(horarioFormatado);
             horarioLabel.setFont(FONT_SUBTITULO);
-            horarioLabel.setForeground(ehUsuario ? new Color(200, 200, 200) : new Color(120, 120, 120));
+            horarioLabel.setForeground(ehUsuario ? new Color(255, 255, 255) : new Color(120, 120, 120));
             horarioLabel.setHorizontalAlignment(SwingConstants.RIGHT);
             textoPanel.add(horarioLabel, BorderLayout.SOUTH);
 
